@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vancomycin TDM Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 data-i18n="title">Vancomycin TDM Calculator</h1>
+            <p data-i18n="subtitle">Therapeutic Drug Monitoring & Dosage Recommendation</p>
+        </header>
+
+        <div class="controls">
+            <button id="themeToggle" class="toggle-btn">
+                <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg id="moonIcon" style="display:none;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <span data-i18n="themeToggle">Dark Mode</span>
+            </button>
+            <button id="langToggle" class="toggle-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+                <span id="langText">한국어</span>
+            </button>
+        </div>
+
+        <main class="grid-layout">
+            <!-- Input Section -->
+            <section class="card input-section">
+                <h2 data-i18n="inputTitle">Patient & Dosing Information</h2>
+                <form id="tdmForm">
+                    <!-- Patient Demographics -->
+                    <div class="form-group-title" data-i18n="patientDemo">Patient Demographics</div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="age" data-i18n="age">Age (years)</label>
+                            <input type="number" id="age" required min="18" data-placeholder="agePlaceholder">
+                        </div>
+                        <div class="input-group">
+                            <label for="sex" data-i18n="sex">Sex</label>
+                            <select id="sex" required>
+                                <option value="male" data-i18n="male">Male</option>
+                                <option value="female" data-i18n="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="height" data-i18n="height">Height (cm)</label>
+                            <input type="number" id="height" required min="100" data-placeholder="heightPlaceholder">
+                        </div>
+                        <div class="input-group">
+                            <label for="weight" data-i18n="weight">Weight (kg)</label>
+                            <input type="number" id="weight" required min="30" data-placeholder="weightPlaceholder">
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="scr" data-i18n="scr">Serum Creatinine (mg/dL)</label>
+                            <input type="number" id="scr" required step="0.01" min="0.1" data-placeholder="scrPlaceholder">
+                        </div>
+                    </div>
+
+                    <!-- Dosing Regimen -->
+                    <div class="form-group-title" data-i18n="dosingRegimen">Current Dosing Regimen</div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="dose" data-i18n="dose">Dose (mg)</label>
+                            <input type="number" id="dose" required step="250" data-placeholder="dosePlaceholder">
+                        </div>
+                        <div class="input-group">
+                            <label for="interval" data-i18n="interval">Interval (hours)</label>
+                            <input type="number" id="interval" required step="6" data-placeholder="intervalPlaceholder">
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="startTime" data-i18n="startTime">First Dose Time</label>
+                            <input type="datetime-local" id="startTime" required>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring -->
+                    <div class="form-group-title" data-i18n="monitoring">Monitoring</div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="sampleTime" data-i18n="sampleTime">Sampling Time</label>
+                            <input type="datetime-local" id="sampleTime" required>
+                            <small class="hint" data-i18n="sampleTimeHint">Time when blood sample was drawn</small>
+                        </div>
+                        <div class="input-group">
+                            <label for="measuredConc" data-i18n="measuredConc">Measured Concentration (mg/L)</label>
+                            <input type="number" id="measuredConc" required step="0.1" min="0" data-placeholder="measuredConcPlaceholder">
+                            <small class="hint" data-i18n="measuredConcHint">Lab result from blood sample</small>
+                        </div>
+                    </div>
+
+                    <button type="button" id="calculateBtn" class="btn-primary" data-i18n="calculateBtn">Calculate & Analyze</button>
+                </form>
+            </section>
+
+            <!-- Results Section -->
+            <section class="card results-section" id="resultsSection">
+                <h2 data-i18n="resultsTitle">TDM Analysis Results</h2>
+
+                <div class="results-grid">
+                    <!-- Key Metrics -->
+                    <div class="metric-card">
+                        <div class="metric-label" data-i18n="auc24">AUC (24h)</div>
+                        <div class="metric-value" id="aucValue">--</div>
+                        <div class="metric-unit">mg·h/L</div>
+                        <div class="status-badge" id="aucStatus" data-i18n="waiting">Waiting...</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label" data-i18n="trough">Trough (Cmin)</div>
+                        <div class="metric-value" id="troughValue">--</div>
+                        <div class="metric-unit">mg/L</div>
+                        <div class="status-badge" id="troughStatus" data-i18n="waiting">Waiting...</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label" data-i18n="clearance">Clearance (CL)</div>
+                        <div class="metric-value" id="clValue">--</div>
+                        <div class="metric-unit">L/h</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label" data-i18n="halflife">Half-life (T1/2)</div>
+                        <div class="metric-value" id="halflifeValue">--</div>
+                        <div class="metric-unit" data-i18n="hours">hours</div>
+                    </div>
+                </div>
+
+                <!-- Concentration-Time Curve -->
+                <div class="chart-container">
+                    <h3 data-i18n="concentrationCurve">Concentration-Time Curve</h3>
+                    <canvas id="pkChart"></canvas>
+                </div>
+
+                <!-- Detailed Interpretation -->
+                <div class="interpretation-box">
+                    <h3 data-i18n="clinicalInterpretation">Clinical Interpretation</h3>
+                    <div class="interpret-item">
+                        <span class="label" data-i18n="effectivenessLabel">Effectiveness Prediction:</span>
+                        <span id="effectivenessText" class="value">--</span>
+                    </div>
+                    <div class="interpret-item">
+                        <span class="label" data-i18n="toxicityLabel">Toxicity Assessment:</span>
+                        <span id="toxicityText" class="value">--</span>
+                    </div>
+                </div>
+
+                <!-- Recommendation -->
+                <div class="recommendation-box" id="recBox">
+                    <h3 data-i18n="recommendationTitle">Dosage Recommendation</h3>
+                    <p id="recommendationText" data-i18n="recommendationPlaceholder">Please enter patient data and calculate to see recommendations.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
