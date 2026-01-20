@@ -104,17 +104,14 @@
 
                     <!-- Monitoring -->
                     <div class="form-group-title" data-i18n="monitoring">Monitoring</div>
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label for="sampleTime" data-i18n="sampleTime">Sampling Time</label>
-                            <input type="datetime-local" id="sampleTime" required>
-                            <small class="hint" data-i18n="sampleTimeHint">Time when blood sample was drawn</small>
+                    <div class="monitoring-section">
+                        <div id="measurementsContainer">
+                            <!-- Dynamic measurement entries will be added here by JavaScript -->
                         </div>
-                        <div class="input-group">
-                            <label for="measuredConc" data-i18n="measuredConc">Measured Concentration (mg/L)</label>
-                            <input type="number" id="measuredConc" required step="0.1" min="0" data-placeholder="measuredConcPlaceholder">
-                            <small class="hint" data-i18n="measuredConcHint">Lab result from blood sample</small>
-                        </div>
+                        <button type="button" id="addMeasurementBtn" class="btn-secondary" data-i18n="addMeasurement">
+                            + Add Measurement
+                        </button>
+                        <small class="hint measurement-hint" data-i18n="measurementHint">Add 2+ measurements for multi-point Bayesian fitting</small>
                     </div>
 
                     <button type="button" id="calculateBtn" class="btn-primary" data-i18n="calculateBtn">Calculate & Analyze</button>
@@ -177,6 +174,38 @@
                 <div class="recommendation-box" id="recBox">
                     <h3 data-i18n="recommendationTitle">Dosage Recommendation</h3>
                     <p id="recommendationText" data-i18n="recommendationPlaceholder">Please enter patient data and calculate to see recommendations.</p>
+                </div>
+
+                <!-- Specific Dose Recommendations -->
+                <div class="dose-recommendations-box" id="doseRecommendationsBox" style="display: none;">
+                    <h3 data-i18n="specificDoseRecTitle">Specific Dose Recommendations</h3>
+                    <div class="dose-options" id="doseOptions">
+                        <!-- Will be populated with specific dose options and AUC predictions -->
+                    </div>
+                </div>
+
+                <!-- Dose Simulation Section -->
+                <div class="simulation-box" id="simulationBox" style="display: none;">
+                    <h3 data-i18n="doseSimulationTitle">Dose Simulation</h3>
+                    <div class="simulation-grid">
+                        <div class="input-group">
+                            <label for="simDose" data-i18n="simDose">Simulated Dose (mg)</label>
+                            <input type="number" id="simDose" step="250" min="250" data-placeholder="simDosePlaceholder">
+                        </div>
+                        <div class="input-group">
+                            <label for="simInterval" data-i18n="simInterval">Simulated Interval</label>
+                            <select id="simInterval">
+                                <option value="8">q8h</option>
+                                <option value="12" selected>q12h</option>
+                                <option value="24">q24h</option>
+                                <option value="48">q48h</option>
+                            </select>
+                        </div>
+                        <button type="button" id="simulateBtn" class="btn-secondary" data-i18n="simulateBtn">Simulate</button>
+                    </div>
+                    <div class="simulation-results" id="simulationResults">
+                        <!-- Simulation results will be displayed here -->
+                    </div>
                 </div>
             </section>
         </main>

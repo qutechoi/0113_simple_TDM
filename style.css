@@ -468,3 +468,324 @@ input:-webkit-autofill:active {
     width: 16px;
     height: 16px;
 }
+
+/* Multi-Measurement Styles */
+.monitoring-section {
+    margin-top: 0.5rem;
+}
+
+.measurement-entry {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.measurement-entry.highlight {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.measurement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.measurement-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--primary-color);
+}
+
+.btn-remove {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.btn-secondary {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: 1.5px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.measurement-hint {
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Simulation Box Styles */
+.simulation-box {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .simulation-box {
+        padding: 1.5rem;
+    }
+}
+
+.simulation-box h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.simulation-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: end;
+}
+
+@media (min-width: 600px) {
+    .simulation-grid {
+        grid-template-columns: 1fr 1fr auto;
+    }
+}
+
+.simulation-results {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.simulation-result-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.sim-result-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.sim-result-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    min-width: 120px;
+}
+
+.sim-result-value {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Dose Recommendations Box */
+.dose-recommendations-box {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .dose-recommendations-box {
+        padding: 1.5rem;
+    }
+}
+
+.dose-recommendations-box h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.dose-options {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.dose-options-header {
+    display: none;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+}
+
+@media (min-width: 600px) {
+    .dose-options-header {
+        display: grid;
+    }
+}
+
+.dose-option {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    align-items: center;
+    transition: all 0.2s;
+}
+
+@media (min-width: 600px) {
+    .dose-option {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 1rem;
+    }
+}
+
+.dose-option:hover {
+    border-color: var(--primary-color);
+}
+
+.dose-option.recommended {
+    border-color: var(--success-color);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.dose-option.current {
+    border-color: var(--primary-color);
+    background: rgba(14, 165, 233, 0.05);
+}
+
+.dose-option-label {
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.current-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.dose-option-auc,
+.dose-option-trough {
+    font-size: 0.875rem;
+    color: var(--text-main);
+}
+
+@media (max-width: 599px) {
+    .dose-option-auc::before {
+        content: 'AUC: ';
+        color: var(--text-secondary);
+        font-weight: 400;
+    }
+
+    .dose-option-trough::before {
+        content: 'Trough: ';
+        color: var(--text-secondary);
+        font-weight: 400;
+    }
+}
+
+.dose-option-status {
+    text-align: left;
+}
+
+@media (min-width: 600px) {
+    .dose-option-status {
+        text-align: right;
+    }
+}
+
+/* Bayesian Fit Quality Indicator */
+.fit-quality-indicator {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--input-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    font-size: 0.875rem;
+}
+
+.fit-quality-label {
+    color: var(--text-secondary);
+}
+
+.fit-quality-value {
+    font-weight: 600;
+}
+
+.fit-quality-value.good {
+    color: var(--success-color);
+}
+
+.fit-quality-value.moderate {
+    color: var(--warning-color);
+}
+
+.fit-quality-value.poor {
+    color: var(--accent-color);
+}
+
+.fit-quality-details {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Dark mode adjustments for new components */
+[data-theme="dark"] .dose-option.recommended {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+[data-theme="dark"] .dose-option.current {
+    background: rgba(14, 165, 233, 0.1);
+}
+
+[data-theme="dark"] .measurement-entry.highlight {
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
